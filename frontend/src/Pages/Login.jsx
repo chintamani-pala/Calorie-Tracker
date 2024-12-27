@@ -1,105 +1,64 @@
-import axios from "axios";
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CustomeAlert } from "../services/CustomeAlert";
+import axios from "axios";
 
-const LoginPage = () => {
+const Logout = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const logout = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/login`,
-        { email, password },
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/logout`,
         {
-          withCredentials: true, // This ensures the cookies are set automatically in the browser
+          withCredentials: true,
         }
       );
-      console.log(response);
-      if (response.data.success === true) {
-        CustomeAlert("success", "Login Successfull");
+      if (res.status === 200) {
+        setIsAuthenticated(false);
+        CustomeAlert("success", "You have been logged out successfully");
         setTimeout(() => {
-          setIsAuthenticated(true);
-          navigate("/dashboard");
+          navigate("/login");
         }, 3000);
       }
     } catch (err) {
       console.error(err);
-
-      setError(err.response.data.message);
     }
+  };
+  const handleLogout = () => {
+    // Perform any logout operations here (e.g., clearing session, cookies)
+    logout();
+    // Redirect to login page after logout
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-600">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-3xl font-bold text-blue-600 mb-6 text-center">
-          Login
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email Input */}
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          <div>
-            <label htmlFor="email" className="block text-gray-700 font-medium">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-              className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Password Input */}
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-              className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-        <div className="mt-4 text-center">
-          <p>
-            Don&apos;t have an account?{" "}
-            <Link to="/register" className="text-blue-500">
-              Register here
-            </Link>
-          </p>
+    <div className="min-h-screen flex items-center justify-center bg-blue-600 p-6">
+      <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+        <h1 className="text-3xl font-semibold text-center text-gray-700 mb-6">
+          Are you sure you want to logout?
+        </h1>
+        <p className="text-center text-gray-500 mb-6">
+          You will be logged out of your account. Please confirm your decision.
+        </p>
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={handleLogout}
+            className="w-full py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            Logout
+          </button>
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="w-full py-3 bg-gray-300 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default Logout;

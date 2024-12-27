@@ -184,18 +184,30 @@ export const logoutUser = CatchAsyncError(async (req, res, next) => {
 
 export const verifyToken = CatchAsyncError(async (req, res) => {
   const accessToken = req.cookies.access_token;
+  const refresh = req.cookies.refresh_token;
 
-  if (!accessToken) {
+  if (!accessToken && !refresh) {
     return res
       .status(401)
       .json({ success: false, message: "No access token provided" });
   }
+
   try {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN);
-    console.log("yes");
+
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    if (error.name === "TokenExpiredError") {
+      try {
+        jwt.verify(refresh, process.env.REFRESH_TOKEN);
+
+        return res.status(200).json({ success: true });
+      } catch (err) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Invalid or expired token" });
+      }
+    }
     return res
       .status(401)
       .json({ success: false, message: "Invalid or expired token" });

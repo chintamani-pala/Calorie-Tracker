@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { CustomeAlert } from "../services/CustomeAlert";
+import { AuthContext } from "../context/AuthContext";
 
 const RegisterPage = () => {
+  const { setIsAuthenticated, handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -14,6 +16,16 @@ const RegisterPage = () => {
 
   const { name, email, password } = formData;
 
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const isLoggedIn = await handleLogin();
+      if (isLoggedIn) {
+        setIsAuthenticated(true);
+        navigate("/dashboard");
+      }
+    };
+    checkAuthentication();
+  }, []);
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;

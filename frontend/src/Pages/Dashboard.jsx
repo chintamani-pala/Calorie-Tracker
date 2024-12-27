@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 
 const Dashboard = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
   const [foodItem, setFoodItem] = useState("");
@@ -33,13 +33,20 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    }
-    // Set today's date in YYYY-MM-DD format
-    handleFilter();
+    const checkAuthentication = async () => {
+      const isLoggedIn = await handleLogin();
+
+      if (!isLoggedIn) {
+        navigate("/login");
+      } else {
+        // Fetch the initial filtered entries if authenticated
+        handleFilter();
+      }
+    };
+
+    checkAuthentication();
   }, []);
+
   const addFoodLog = async (entry) => {
     try {
       const res = await axios.post(
