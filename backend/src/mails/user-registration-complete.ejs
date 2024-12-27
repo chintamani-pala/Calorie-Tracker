@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333333;
+      }
+      p {
+        margin-bottom: 10px;
+        color: #555555;
+      }
+      .button {
+        display: inline-block;
+        background-color: #4caf50;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+      }
+      ol li,
+      ul li {
+        margin-bottom: 10px;
+        color: #444444;
+      }
+      .footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #888888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to Calorie Tracker!</h1>
+      <p>Dear <%= name %>,</p>
+      <p>
+        Thank you for joining Calorie Tracker! We’re excited to help you take
+        control of your nutrition and achieve your health goals.
+      </p>
+
+      <p>
+        We recommend the following steps to begin your calorie tracking journey:
+      </p>
+      <ul>
+        <li>
+          Log your first meal: Start by recording what you’ve eaten today to see
+          how the tracker works.
+        </li>
+        <li>
+          Set your daily calorie goal: Customize your goals to align with your
+          health and fitness objectives.
+        </li>
+        <li>
+          Explore the dashboard: Access day-wise entries, total calorie
+          breakdowns, and more insights.
+        </li>
+      </ul>
+
+      <p>
+        If you have any questions or need assistance, feel free to reach out to
+        our support team at
+        <a href="mailto:chintamanipala67@gmail.com"
+          >chintamanipala67@gmail.com</a
+        >. We’re here to help!
+      </p>
+
+      <p>
+        Once again, welcome aboard! We hope you find Calorie Tracker
+        instrumental in your health journey.
+      </p>
+
+      <p>Best regards,<br /><b>The Calorie Tracker Team</b></p>
+
+      <p>Date: <%= date %></p>
+    </div>
+  </body>
+</html>

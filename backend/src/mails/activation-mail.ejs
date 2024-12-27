@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activate Your Account</title>
+    <style>
+      /* General reset and styling */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 30px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e7eb;
+      }
+
+      .header {
+        background-color: #4caf50;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+
+      .content {
+        padding: 20px 30px;
+        color: #374151;
+        line-height: 1.8;
+      }
+
+      .content h2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .activation-code {
+        background-color: #f3f4f6;
+        color: #111827;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: center;
+        margin: 20px auto;
+        display: inline-block;
+        border-radius: 5px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #f9fafb;
+        color: #6b7280;
+        font-size: 14px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .footer a {
+        color: #4caf50;
+        text-decoration: none;
+      }
+
+      /* Responsive design */
+      @media (max-width: 600px) {
+        .email-container {
+          margin: 10px;
+        }
+        .content {
+          padding: 15px;
+        }
+      }
+      .activation-code-container {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <h1>Calorie Tracker</h1>
+      </div>
+      <div class="content">
+        <h2>Welcome, <%= users.name %>!</h2>
+        <p>
+          Thank you for signing up for Calorie Tracker. We're excited to have
+          you on board! To activate your account and start tracking your daily
+          calorie intake, please use the code below:
+        </p>
+        <div class="activation-code-container">
+          <div class="activation-code"><%= activationCode %></div>
+        </div>
+        <p>
+          Simply enter this code on the activation page to complete your
+          registration. If you did not create this account, please disregard
+          this email.
+        </p>
+        <p>
+          For any assistance, feel free to contact our support team at
+          <a href="mailto:chintamanipala67@gmail.com"
+            >chintamanipala67@gmail.com</a
+          >.
+        </p>
+      </div>
+      <div class="footer">
+        <p>Happy tracking!</p>
+        <p>© 2024 Calorie Tracker. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
